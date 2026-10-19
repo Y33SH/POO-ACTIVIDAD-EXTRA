@@ -18,7 +18,7 @@
 body { margin: 0; min-height: 100vh; background: #ededed; color: var(--ink); }
 button, input { font: inherit; }
 button { cursor: pointer; }
-button:focus-visible, input:focus-visible { outline: 3px solid #68aaff; outline-offset: 2px; }
+button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #68aaff; outline-offset: 2px; }
 [hidden] { display: none !important; }
 .app-shell { position: relative; width: min(100%, 390px); min-height: 100vh; min-height: 100svh; margin: 0 auto; overflow: hidden; background: var(--paper); }
 .auth-view { min-height: 100vh; min-height: 100svh; padding: 33px 24px 40px; display: flex; flex-direction: column; align-items: center; background: var(--paper); }
@@ -81,13 +81,16 @@ button:focus-visible, input:focus-visible { outline: 3px solid #68aaff; outline-
 .transport-list { display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .transport-list::-webkit-scrollbar { display: none; }
 .transport-card { display: flex; width: 165px; height: 165px; flex: 0 0 165px; flex-direction: column; align-items: flex-start; justify-content: space-between; overflow: hidden; padding: 12px; border-radius: 6px; background: #f3f3f3; color: var(--ink); scroll-snap-align: start; }
-.transport-card > img { display: block; flex: 0 0 30px; object-fit: contain; }
-.transport-card h3 { width: 100%; margin: -4px 0 0; font-size: 18px; font-weight: 650; line-height: 1.15; }
+.transport-card-header { display: flex; width: 100%; min-height: 30px; align-items: center; gap: 8px; }
+.transport-card-header img { display: block; flex: 0 0 30px; object-fit: contain; }
+.transport-card-header h3 { min-width: 0; flex: 1; margin: 0; font-size: 16px; font-weight: 650; line-height: 1.15; }
+.service-select { width: 100%; height: 30px; padding: 0 8px; border: 1px solid #bdbdbd; border-radius: 5px; background: #fff; color: var(--ink); font-size: 11px; font-weight: 600; }
 .fare-lines { display: flex; width: 100%; flex-direction: column; justify-content: center; gap: 2px; min-height: 30px; margin: 0; color: rgba(25, 25, 25, .62); font-size: 11px; line-height: 1.25; text-align: right; }
 .fare-lines strong { color: var(--ink); font-weight: 650; }
 .ordinary-fare { font-size: 11px; text-align: left; }
 .acquire-button { width: 100%; min-height: 40px; padding: 4px; border: 0; border-radius: 6px; color: #fff; font-size: 11px; font-weight: 600; white-space: nowrap; }
 .metro-acquire { background: var(--blue); }
+.metro-acquire:disabled { opacity: .5; cursor: not-allowed; }
 .bus-acquire { background: rgba(0, 220, 72, .72); }
 .integrated-card { background: #fff; color: var(--ink); }
 .integrated-fare, .integrated-fare strong { color: var(--ink); text-align: left; }

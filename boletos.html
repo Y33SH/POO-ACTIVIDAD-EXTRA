@@ -26,20 +26,31 @@
                     <h2>Accede a tu transporte</h2>
                     <div class="transport-list">
                         <article class="transport-card">
-                            <img src="assets/train.svg" alt="" width="30" height="30">
-                            <h3>Metrorrey</h3>
+                            <div class="transport-card-header">
+                                <img src="assets/train.svg" alt="" width="30" height="30">
+                                <h3>Metrorrey</h3>
+                            </div>
+                            <select id="metro-service" class="service-select" aria-label="Selecciona el servicio de Metrorrey">
+                                <option value="" selected disabled>Elige servicio</option>
+                                <option value="Metro">Metro</option>
+                                <option value="Transmetro">Transmetro</option>
+                            </select>
                             <p class="fare-lines"><span>Metro: <strong>$9.50 mxn</strong></span><span>Transmetro: <strong>$9.50 mxn</strong></span></p>
-                            <button class="acquire-button metro-acquire" type="button" data-route="metro">Adquiere tu pasaje</button>
+                            <button class="acquire-button metro-acquire" type="button" data-route="metro" disabled>Adquiere tu pasaje</button>
                         </article>
                         <article class="transport-card">
-                            <img src="assets/bus.svg" alt="" width="30" height="30">
-                            <h3>Camión</h3>
+                            <div class="transport-card-header">
+                                <img src="assets/bus.svg" alt="" width="30" height="30">
+                                <h3>Camión</h3>
+                            </div>
                             <p class="fare-lines ordinary-fare">Tarifa Ordinaria: <strong>$10 mxn</strong></p>
                             <button class="acquire-button bus-acquire" type="button" data-route="bus">Adquiere tu pasaje</button>
                         </article>
                         <article class="transport-card integrated-card">
-                            <img src="assets/bus-small.svg" alt="" width="30" height="30">
-                            <h3>Ruta Integrada</h3>
+                            <div class="transport-card-header">
+                                <img src="assets/bus.svg" alt="" width="30" height="30">
+                                <h3>Ruta Integrada</h3>
+                            </div>
                             <p class="fare-lines integrated-fare">Tarifa ordinaria <strong>$9.19 mxn</strong></p>
                             <button class="acquire-button integrated-acquire" type="button" data-route="ruta-integrada">Adquiere tu pasaje</button>
                         </article>

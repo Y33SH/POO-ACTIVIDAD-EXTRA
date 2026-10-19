@@ -132,7 +132,14 @@ class GestorBilletera {
         document.getElementById('btn-ver-historial').addEventListener('click', () => this.mostrarVista('history'));
         document.querySelectorAll('[data-back]').forEach((button) => button.addEventListener('click', () => this.mostrarVista('home')));
         document.querySelectorAll('[data-route]').forEach((button) => {
-            button.addEventListener('click', () => this.procesarCompra(this.crearTarifa(button.dataset.route)));
+            button.addEventListener('click', () => {
+                const service = button.dataset.route === 'metro' ? document.getElementById('metro-service').value : undefined;
+                this.procesarCompra(this.crearTarifa(button.dataset.route, service));
+            });
+        });
+        const metroService = document.getElementById('metro-service');
+        metroService.addEventListener('change', () => {
+            document.querySelector('.metro-acquire').disabled = metroService.value === '';
         });
         const transportList = document.querySelector('.transport-list');
         const slideButtons = [...document.querySelectorAll('[data-slide]')];
@@ -172,9 +179,9 @@ class GestorBilletera {
         });
     }
 
-    crearTarifa(route) {
+    crearTarifa(route, service) {
         const tarifas = {
-            metro: () => new TarifaEstudiante('Metrorrey'),
+            metro: () => service === 'Transmetro' ? new TarifaTransmetro() : new TarifaEstudiante('Metro'),
             transmetro: () => new TarifaTransmetro(),
             bus: () => new TarifaCamion(),
             'ruta-integrada': () => new TarifaRutaIntegrada()
@@ -288,7 +295,7 @@ class GestorBilletera {
             const date = new Date(trip.createdAt);
             const day = new Intl.DateTimeFormat('es-MX', { day: '2-digit', month: 'short', year: 'numeric' }).format(date).replace('.', '');
             const time = new Intl.DateTimeFormat('es-MX', { hour: '2-digit', minute: '2-digit', hour12: false }).format(date);
-            return `<article class="history-card"><div class="history-date"><span>${day}</span><time>${time}</time></div><div class="history-fare"><strong>${this.escapeHtml(trip.service).toUpperCase()}</strong><strong>${this.formatearPesos(trip.amount)} mxn</strong></div><hr><div class="transaction-id"><span>ID de transacción</span><strong>${this.escapeHtml(trip.id)}</strong></div></article>`;
+            return `<article class="history-card"><div class="history-date"><span>${day}</span><time>${time}</time></div><div class="history-fare"><strong>${this.escapeHtml(trip.service)}</strong><strong>${this.formatearPesos(trip.amount)} mxn</strong></div><hr><div class="transaction-id"><span>ID de transacción</span><strong>${this.escapeHtml(trip.id)}</strong></div></article>`;
         }).join('');
     }
 
@@ -299,7 +306,7 @@ class GestorBilletera {
         qrContainer.replaceChildren();
         if (typeof QRCode === 'function') {
             new QRCode(qrContainer, {
-                text: movement.id,
+                text: JSON.stringify({ id: movement.id, service: movement.service }),
                 width: 220,
                 height: 220,
                 correctLevel: QRCode.CorrectLevel.H
