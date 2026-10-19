@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>Transporte UANL | Vincular cuenta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main id="app-container" class="app-shell auth-shell">
+        <section id="step-1" class="view auth-view" aria-labelledby="register-title">
+            <img class="uanl-logo" src="assets/uanl-bus.png" alt="Transporte UANL">
+            <h1 id="register-title" class="sr-only">Vincular cuenta</h1>
+            <p class="intro-copy">Vincula tu cuenta de Urbani para usar tu tarifa preferencial de estudiante.</p>
+
+            <form id="form-cuenta" class="auth-form" novalidate>
+                <div class="form-group">
+                    <label for="celular">Número celular</label>
+                    <div class="input-with-icon">
+                        <img src="assets/phone.svg" alt="" width="22" height="22">
+                        <input type="tel" id="celular" placeholder="Ej. 81 8051 1110" autocomplete="tel" inputmode="tel" maxlength="14" required>
+                    </div>
+                </div>
+
+                <label class="checkbox-group" for="politicas">
+                    <input type="checkbox" id="politicas">
+                    <span>Acepto políticas y términos</span>
+                </label>
+
+                <button id="btn-enviar-codigo" class="btn-primary" type="submit" disabled>ENVIAR CÓDIGO</button>
+                <p id="mensaje-registro" class="form-message" aria-live="polite"></p>
+            </form>
+
+            <div class="operator-logos">
+                <p>Operado con Urbani y Metrorrey</p>
+                <div>
+                    <img src="assets/urbani.png" alt="Urbani" width="50" height="50">
+                    <img src="assets/metrorrey.png" alt="Metrorrey" width="50" height="50">
+                </div>
+            </div>
+        </section>
+
+        <section id="step-2" class="view auth-view pin-view" aria-labelledby="pin-title" hidden>
+            <div class="pin-topline">
+                <div class="progress-copy">
+                    <span>Paso 2 de 2</span>
+                    <div class="progress-track" aria-label="Progreso completo"><span></span><span></span></div>
+                </div>
+                <button id="btn-cancelar" class="icon-button" type="button" aria-label="Cancelar vinculación">
+                    <img src="assets/close.svg" alt="" width="22" height="22">
+                </button>
+            </div>
+
+            <div class="pin-content">
+                <h1 id="pin-title" class="pin-title">Ingresa el PIN de tu app Urbani</h1>
+                <div class="form-group">
+                    <div class="pin-input-container">
+                        <input type="password" id="pin" placeholder="••••" maxlength="4" inputmode="numeric" autocomplete="one-time-code" aria-label="PIN de cuatro dígitos">
+                        <button type="button" id="btn-mostrar-pin" class="show-pin-button">Mostrar PIN <span aria-hidden="true">◉</span></button>
+                    </div>
+                    <button id="btn-olvido-pin" type="button" class="forgot-pin">¿Olvidaste tu PIN?</button>
+                </div>
+
+                <button id="btn-biometria" type="button" class="biometric-button">
+                    <img src="assets/scan-face.svg" alt="" width="22" height="22">
+                    <span>Acceder con Face ID / Huella Digital</span>
+                </button>
+                <button id="btn-iniciar-sesion" class="btn-primary" type="button">INICIAR SESIÓN</button>
+                <p id="mensaje-pin" class="form-message" aria-live="polite"></p>
+            </div>
+
+            <nav class="footer-links" aria-label="Navegación de acceso">
+                <button class="btn-text" id="btn-cancelar-footer" type="button">Cancelar</button>
+                <button class="btn-text" id="btn-regresar" type="button">Regresar</button>
+            </nav>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

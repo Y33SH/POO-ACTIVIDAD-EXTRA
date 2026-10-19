@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#292929">
+    <title>Transporte UANL | Pasajes</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="wallet-page">
+    <main id="app-container" class="app-shell wallet-shell">
+        <section id="home-view" class="wallet-view home-view" aria-label="Inicio">
+            <div class="home-top">
+                <nav class="main-tabs" aria-label="Billetera">
+                    <button class="main-tab active" id="tab-pasajes" type="button">Pasajes</button>
+                    <button class="main-tab" id="tab-recargas" type="button">Recargas</button>
+                </nav>
+
+                <section class="balance-summary" aria-label="Saldo disponible">
+                    <p>Saldo disponible</p>
+                    <h1 id="display-saldo">$300 <small>mxn</small></h1>
+                </section>
+
+                <section class="transport-section">
+                    <h2>Accede a tu transporte</h2>
+                    <div class="transport-list">
+                        <article class="transport-card">
+                            <img src="assets/train.svg" alt="" width="30" height="30">
+                            <h3>Metrorrey</h3>
+                            <p class="fare-lines"><span>Metro: <strong>$9.50 mxn</strong></span><span>Transmetro: <strong>$9.50 mxn</strong></span></p>
+                            <button class="acquire-button metro-acquire" type="button" data-route="metro">Adquiere tu pasaje</button>
+                        </article>
+                        <article class="transport-card">
+                            <img src="assets/bus.svg" alt="" width="30" height="30">
+                            <h3>Camión</h3>
+                            <p class="fare-lines ordinary-fare">Tarifa Ordinaria: <strong>$10 mxn</strong></p>
+                            <button class="acquire-button bus-acquire" type="button" data-route="bus">Adquiere tu pasaje</button>
+                        </article>
+                        <article class="transport-card integrated-card">
+                            <img src="assets/bus-small.svg" alt="" width="30" height="30">
+                            <h3>Ruta Integrada</h3>
+                            <p class="fare-lines integrated-fare">Tarifa ordinaria <strong>$9.19 mxn</strong></p>
+                            <button class="acquire-button integrated-acquire" type="button" data-route="ruta-integrada">Adquiere tu pasaje</button>
+                        </article>
+                    </div>
+                    <div class="carousel-dots" aria-label="Opciones de transporte">
+                        <button class="active" type="button" data-slide="0" aria-label="Metrorrey"></button>
+                        <button type="button" data-slide="1" aria-label="Camión"></button>
+                        <button type="button" data-slide="2" aria-label="Ruta Integrada"></button>
+                    </div>
+                </section>
+            </div>
+
+            <section class="latest-section">
+                <div class="section-heading">
+                    <h2>Último Viaje</h2>
+                    <button id="btn-ver-historial" class="text-link" type="button">Ver historial</button>
+                </div>
+                <div id="ultimo-viaje" class="latest-trip"></div>
+            </section>
+
+            <button id="btn-cerrar-sesion" class="logout-button" type="button">Cerrar sesión</button>
+        </section>
+
+        <section id="recharge-view" class="wallet-view recharge-view" aria-labelledby="recharge-title" hidden>
+            <div class="recharge-content">
+                <header class="subpage-header">
+                    <button class="back-button" type="button" data-back aria-label="Regresar"><img src="assets/back-recharge.svg" alt="" width="24" height="24"></button>
+                    <h1 id="recharge-title">Ingresa la cantidad</h1>
+                    <span class="header-spacer" aria-hidden="true"></span>
+                </header>
+
+                <div class="amount-field" aria-live="polite"><span>$</span><output id="recharge-amount">0.00</output><i></i></div>
+                <div class="recharge-guidance">
+                    <p>Tu saldo disponible es: <span id="recharge-balance">$300.00</span> mxn</p>
+                    <ul>
+                        <li>Mínimo por recarga: $20.00 mxn</li>
+                        <li>Máximo por recarga: $300.00 mxn</li>
+                        <li>Máximo diario: <span id="daily-limit">$300.00</span> mxn</li>
+                    </ul>
+                </div>
+                <p id="mensaje-recarga" class="form-message" aria-live="polite"></p>
+                <button id="btn-continuar-recarga" class="continue-button" type="button" disabled>Continuar</button>
+            </div>
+
+            <div id="teclado-numerico" class="numeric-keypad" aria-label="Teclado numérico">
+                <button type="button" data-digit="1">1</button><button type="button" data-digit="2">2</button><button type="button" data-digit="3">3</button>
+                <button type="button" data-digit="4">4</button><button type="button" data-digit="5">5</button><button type="button" data-digit="6">6</button>
+                <button type="button" data-digit="7">7</button><button type="button" data-digit="8">8</button><button type="button" data-digit="9">9</button>
+                <span aria-hidden="true"></span><button type="button" data-digit="0">0</button><button class="delete-key" type="button" data-delete aria-label="Borrar"><img src="assets/delete.svg" alt="" width="24" height="24"></button>
+            </div>
+        </section>
+
+        <section id="history-view" class="wallet-view history-view" aria-labelledby="history-title" hidden>
+            <header class="subpage-header">
+                <button class="back-button" type="button" data-back aria-label="Regresar"><img src="assets/back-history.svg" alt="" width="24" height="24"></button>
+                <h1 id="history-title">Pasajes</h1>
+                <span class="header-spacer" aria-hidden="true"></span>
+            </header>
+            <div id="historial-pasajes" class="history-list"></div>
+            <p class="history-note">Viajes e identificadores de ejemplo</p>
+        </section>
+
+        <div id="qr-container" class="qr-overlay" hidden>
+            <section class="qr-dialog" role="dialog" aria-modal="true" aria-labelledby="qr-title">
+                <button id="btn-cerrar-qr" class="qr-close" type="button" aria-label="Cerrar pasaje">×</button>
+                <p class="qr-eyebrow">TRANSPORTE UANL</p>
+                <h2 id="qr-title">Pasaje activo</h2>
+                <div class="qr-frame">
+                    <div id="qrcode" class="qr-code" aria-label="Código QR del pasaje"></div>
+                </div>
+                <p id="qr-route" class="qr-route"></p>
+                <p id="qr-id" class="qr-id"></p>
+                <p id="tiempo-restante" class="qr-timer">Válido por 15:00 min</p>
+            </section>
+        </div>
+        <p id="wallet-status" class="sr-only" role="status" aria-live="polite"></p>
+    </main>
+    <script src="boletos.js"></script>
+</body>
+</html>
